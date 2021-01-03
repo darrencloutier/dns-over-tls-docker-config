@@ -26,8 +26,8 @@ services:
     - 'DNS1=172.24.0.3'
     - 'DNS2=172.24.0.4'
     volumes:
-    - '/home/pi/pihole/etc-pihole/:/etc/pihole/'
-    - '/home/pi/pihole/etc-dnsmasq.d/:/etc/dnsmasq.d/'
+      - './etc-pihole/:/etc/pihole/'
+      - './etc-dnsmasq.d/:/etc/dnsmasq.d/'
     restart: always
   cloudflare-dns-tls:
     image: qmcgaw/dns:latest
