@@ -1,5 +1,5 @@
 # dns-over-tls-docker-config
-docker-compose.yml for pihole and dns containers with dns over tls and two upstream providers
+docker-compose.yml for pihole and dns containers with dns over tls via two (configurable) upstream providers.  Uses the amazing [PiHole](https://pi-hole.net/) project and Quentin McGaw's equally amazing [DNS](https://hub.docker.com/r/qmcgaw/dns) project.
 
 # Prerequisites 
 - You're running a Raspberry PI with a static IP already assigned.
@@ -17,8 +17,10 @@ docker-compose.yml for pihole and dns containers with dns over tls and two upstr
 - Point your router DNS settings (or individual clients) at the static IP of your Raspberry Pi.
 - Browse to your Raspberry Pi IP address in a web browser to utilize the PiHole web UI for stats and other advanced settings.
 
+# Notes
+The [DNS](https://hub.docker.com/r/qmcgaw/dns) project supports other upstream TLS DNS providers.  You can change this via the PROVIDER configuration each container.
+
 # Useful Commands
 - 'docker-compose stop' to stop your containers.
 - 'docker-compose pull' to check for new versions of your containers and update if there are any available.
 - 'docker-compose up -d' to start your containers.
-
