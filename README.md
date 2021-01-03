@@ -18,7 +18,9 @@ docker-compose.yml for pihole and dns containers with dns over tls via two (conf
 - Browse to your Raspberry Pi IP address in a web browser to utilize the PiHole web UI for stats and other advanced settings.
 
 # Notes
-The [DNS](https://hub.docker.com/r/qmcgaw/dns) project supports other upstream TLS DNS providers.  You can change this via the PROVIDER configuration each container.
+- The [DNS](https://hub.docker.com/r/qmcgaw/dns) project supports other upstream TLS DNS providers.  You can change this via the PROVIDER configuration each container.
+- There are many great options availabe in the DNS containers and PiHole.  Change them to your needs!
+- The DNS containers are reachable directly (bypassing PiHole) at the IP of your Raspberry PI at ports 5053 and 50053 if you'd like to bypass PiHole.
 
 # Useful Commands
 - 'docker-compose stop' to stop your containers.
