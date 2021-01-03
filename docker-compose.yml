@@ -9,7 +9,7 @@ networks:
 services:
   pihole:
     container_name: pihole
-    hostname: pihole-1
+    hostname: pihole
     image: pihole/pihole:latest
     networks:
       dns-tls-net:
