@@ -1,0 +1,73 @@
+version: "3.7"
+networks:
+  dns-tls-net:
+    driver: bridge
+    ipam:
+        config:
+        - subnet: 172.24.0.0/16
+
+services:
+  pihole:
+    container_name: pihole
+    hostname: pihole-1
+    image: pihole/pihole:latest
+    networks:
+      dns-tls-net:
+        ipv4_address: 172.24.0.2
+    ports:
+    - "53:53/tcp"
+    - "53:53/udp"
+    - "80:80/tcp"
+    - "444:443/tcp"
+    environment:
+    - 'TZ=America/New York'
+    # Put a password here, otherwise it will be random.
+    #- 'WEBPASSWORD='
+    - 'DNS1=172.24.0.3'
+    - 'DNS2=172.24.0.4'
+    volumes:
+    - '/home/pi/pihole/etc-pihole/:/etc/pihole/'
+    - '/home/pi/pihole/etc-dnsmasq.d/:/etc/dnsmasq.d/'
+    restart: always
+  cloudflare-dns-tls:
+    image: qmcgaw/dns:latest
+    container_name: cloudflare-dns-tls
+    networks:
+      dns-tls-net:
+        ipv4_address: 172.24.0.3
+    ports:
+      - "5053:53/tcp"
+      - "5053:53/udp"
+    environment:
+      - VERBOSITY=1
+      - VERBOSITY_DETAILS=0
+      - BLOCK_MALICIOUS=off
+      - BLOCK_SURVEILLANCE=off
+      - BLOCK_ADS=off
+      - BLOCK_IPS=
+      - BLOCK_HOSTNAMES=
+      - UNBLOCK=
+      - PROVIDER=cloudflare
+      - UPDATE_PERIOD=24h
+    restart: always
+  google-dns-tls:
+    image: qmcgaw/dns:latest
+    container_name: google-dns-tls
+    networks:
+      dns-tls-net:
+        ipv4_address: 172.24.0.4
+    ports:
+      - "50053:53/tcp"
+      - "50053:53/udp"
+    environment:
+      - VERBOSITY=1
+      - VERBOSITY_DETAILS=0
+      - BLOCK_MALICIOUS=off
+      - BLOCK_SURVEILLANCE=off
+      - BLOCK_ADS=off
+      - BLOCK_IPS=
+      - BLOCK_HOSTNAMES=
+      - UNBLOCK=
+      - PROVIDER=google
+      - UPDATE_PERIOD=24h
+    restart: always
